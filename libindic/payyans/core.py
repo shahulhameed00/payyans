@@ -32,7 +32,6 @@ from __future__ import print_function
 '''
 
 '''ആവശ്യത്തിനുള്ള കോപ്പുകള്‍ കൂട്ടുക '''
-import sys  # കുന്തം
 import codecs  # കൊടച്ചക്രം
 import os  # ശീലക്കുട
 from libindic.normalizer import Normalizer
