@@ -32,7 +32,6 @@ from __future__ import print_function
 '''
 
 '''ആവശ്യത്തിനുള്ള കോപ്പുകള്‍ കൂട്ടുക '''
-import sys  # കുന്തം
 import codecs  # കൊടച്ചക്രം
 import os  # ശീലക്കുട
 from libindic.normalizer import Normalizer
@@ -89,7 +88,7 @@ class Payyans():
                     break
                 else:
                     if charNo == 1:
-                        index + =  1
+                        index += 1
                         ascii_text += letter
                         break
                     '''നോക്കിയിട്ടു കിട്ടുന്നില്ല ബായി'''
@@ -116,7 +115,7 @@ class Payyans():
                 letter = ascii_text[index:index + charNo]
                 if letter in self.rulesDict:
                     unicode_letter = self.rulesDict[letter]
-                    if(self.isPrebase(unicode_letter)):  # സ്വരചിഹ്നമാണോ?
+                    if self.isPrebase(unicode_letter):  # സ്വരചിഹ്നമാണോ?
                         prebase_letter = unicode_letter
                     else:  # സ്വരചിഹ്നമല്ല
                         '''
@@ -150,7 +149,8 @@ class Payyans():
                     unicode_letter = letter
         return unicode_text  # മതം മാറ്റി തിരിച്ചു കൊടുക്ക്വാ !
 
-    def getVowelSign(self, vowel_letter, vowel_sign_letter):
+    @staticmethod
+    def getVowelSign(vowel_letter, vowel_sign_letter):
         vowel = vowel_letter.encode('utf-8')
         vowel_sign = vowel_sign_letter.encode('utf-8')
         if vowel == "എ" and vowel_sign == "െ":
@@ -160,40 +160,37 @@ class Payyans():
                 return "ഓ"
             if vowel_sign == "ൗ":
                 return "ഔ"
-        return (vowel_letter + vowel_sign_letter)
+        return vowel_letter + vowel_sign_letter
 
-    def isPrebase(self, letter):
-        '''
+    @staticmethod
+    def isPrebase(letter):
+        """
          ഇതെന്തിനാന്നു ചോദിച്ചാ, ഈ അക്ഷരങ്ങളുടെ ഇടതു വശത്തെഴുതുന്ന
          സ്വര ചിഹ്നങ്ങളുണ്ടല്ലോ? അവ ആസ്കി തരികിടയില്‍ എഴുതുന്നതു് ഇടതു വശത്തു
          തന്നെയാ. യൂണിക്കോഡില്‍ അക്ഷരത്തിനു ശേഷവും അപ്പൊ ആ വക സംഭവങ്ങളെ
          തിരിച്ചറിയാനാണു് ഈ സംഭവം.
-        "തരികിട തരികിടോ ധീംതരികിട" (തരികിട തരികിടയാല്‍)
+        'തരികിട തരികിടോ ധീംതരികിട' (തരികിട തരികിടയാല്‍)
          എന്നു പയ്യന്റെ ഗുരു പയ്യഗുരു പയ്യെ മൊഴിഞ്ഞിട്ടുണ്ടു്.
-        '''
+        """
         unicode_letter = letter.encode('utf-8')
-        if unicode_letter in ["േ", "ൈ", "ൊ", "ോ", "ൌ", "്ര", "െ"]:
-            return True  # "ഇതു സത്യം... അ...സത്യം.... അസത്യം...!"
-        else:
-            return False
+        return unicode_letter in ["േ", "ൈ", "ൊ", "ോ", "ൌ", "്ര", "െ"]
 
-    def isPostbase(self, letter):
-        '''
-        "ക്യ" എന്നതിലെ "്യ", "ക്വ" എന്നതിലെ "്വ" എന്നിവ പോസ്റ്റ്-ബേസ് ആണ്.
-        "ത്യേ" എന്നത് ആസ്കിയില്‍ "ഏ+ത+്യ" എന്നാണ് എഴുതുന്നത്.
+    @staticmethod
+    def isPostbase(letter):
+        """
+        'ക്യ എന്നതിലെ "്യ", "ക്വ" എന്നതിലെ "്വ" എന്നിവ പോസ്റ്റ്-ബേസ് ആണ്.
+        'ത്യേ' എന്നത് ആസ്കിയില്‍ "ഏ+ത+്യ" എന്നാണ് എഴുതുന്നത്.
         അപ്പോള്‍ വ്യഞ്ജനം കഴിഞ്ഞ് പോസ്റ്റ്-ബേസ് ഉണ്ടെങ്കില്‍
         വ്യഞ്ജനം+പോസ്റ്റ്-ബേസ് കഴിഞ്ഞേ പ്രീ-ബേസ് ചേര്‍ക്കാവൂ!
         ഹൊ, പയ്യന്‍ പാണിനീശിഷ്യനാണ്!!
-        '''
+        """
         unicode_letter = letter.encode('utf-8')
         # Returns True if the letter is there in the list, 
         # else False.
         return unicode_letter in ["്യ", "്വ"]
 
     def LoadRules(self):
-        '''
-        ഈ സംഭവമാണു് മാപ്പിങ്ങ് ഫയല്‍ എടുത്തു് വായിച്ചു പഠിക്കുന്നതു്.
-        '''
+        # ഈ സംഭവമാണു് മാപ്പിങ്ങ് ഫയല്‍ എടുത്തു് വായിച്ചു പഠിക്കുന്നതു്.
         # if(self.rulesDict):
         #    return self.rulesDict
         rules_dict = dict()
@@ -206,7 +203,7 @@ class Payyans():
             ലൈന്‍ നമ്പര്‍ , മാപ്പിങ്ങ് ഫയലില്‍ തെറ്റുണ്ടെങ്കില്‍
             പറയാന്‍ ആവശ്യാണു്
             '''
-            line_number = line_number + 1
+            line_number += 1
             original_text = rules_file.readline()
             try:
                 text = unicode(original_text)  # noqa: F821
@@ -225,7 +222,7 @@ class Payyans():
             if not line:
                 continue
                 '''ലൈനൊന്നും ല്യാ, മോശം.. ങും പോട്ടെ. വേറെ ലൈന്‍ പിടിക്കാം'''
-            if(len(line.split("=")) != 2):
+            if len(line.split("=")) != 2:
                 '''എന്തോ പ്രശ്നണ്ടു്. ന്നാ അതങ്ങടു തുറന്നു പറഞ്ഞേക്കാം'''
                 print("Error: Syntax Error in the Ascii to Unicode Map "
                       "in line number ", line_number)
@@ -246,10 +243,12 @@ class Payyans():
                 rules_dict[rhs] = lhs
         return rules_dict
 
-    def get_module_name(self):
+    @staticmethod
+    def get_module_name():
         return "Payyans Unicode-ASCII Converter"
 
-    def get_info(self):
+    @staticmethod
+    def get_info():
         return "ASCII data - Unicode Convertor based on font maps"
 
 
