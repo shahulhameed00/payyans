@@ -115,7 +115,7 @@ class Payyans():
                 letter = ascii_text[index:index + charNo]
                 if letter in self.rulesDict:
                     unicode_letter = self.rulesDict[letter]
-                    if(self.isPrebase(unicode_letter)):  # സ്വരചിഹ്നമാണോ?
+                    if self.isPrebase(unicode_letter):  # സ്വരചിഹ്നമാണോ?
                         prebase_letter = unicode_letter
                     else:  # സ്വരചിഹ്നമല്ല
                         '''
@@ -160,39 +160,37 @@ class Payyans():
                 return "ഓ"
             if vowel_sign == "ൗ":
                 return "ഔ"
-        return (vowel_letter + vowel_sign_letter)
-    
+        return vowel_letter + vowel_sign_letter
+
     @staticmethod
     def isPrebase(letter):
-        '''
+        """
          ഇതെന്തിനാന്നു ചോദിച്ചാ, ഈ അക്ഷരങ്ങളുടെ ഇടതു വശത്തെഴുതുന്ന
          സ്വര ചിഹ്നങ്ങളുണ്ടല്ലോ? അവ ആസ്കി തരികിടയില്‍ എഴുതുന്നതു് ഇടതു വശത്തു
          തന്നെയാ. യൂണിക്കോഡില്‍ അക്ഷരത്തിനു ശേഷവും അപ്പൊ ആ വക സംഭവങ്ങളെ
          തിരിച്ചറിയാനാണു് ഈ സംഭവം.
-        "തരികിട തരികിടോ ധീംതരികിട" (തരികിട തരികിടയാല്‍)
+        'തരികിട തരികിടോ ധീംതരികിട' (തരികിട തരികിടയാല്‍)
          എന്നു പയ്യന്റെ ഗുരു പയ്യഗുരു പയ്യെ മൊഴിഞ്ഞിട്ടുണ്ടു്.
-        '''
+        """
         unicode_letter = letter.encode('utf-8')
         return unicode_letter in ["േ", "ൈ", "ൊ", "ോ", "ൌ", "്ര", "െ"]
 
     @staticmethod
     def isPostbase(letter):
-        '''
-        "ക്യ" എന്നതിലെ "്യ", "ക്വ" എന്നതിലെ "്വ" എന്നിവ പോസ്റ്റ്-ബേസ് ആണ്.
-        "ത്യേ" എന്നത് ആസ്കിയില്‍ "ഏ+ത+്യ" എന്നാണ് എഴുതുന്നത്.
+        """
+        'ക്യ എന്നതിലെ "്യ", "ക്വ" എന്നതിലെ "്വ" എന്നിവ പോസ്റ്റ്-ബേസ് ആണ്.
+        'ത്യേ' എന്നത് ആസ്കിയില്‍ "ഏ+ത+്യ" എന്നാണ് എഴുതുന്നത്.
         അപ്പോള്‍ വ്യഞ്ജനം കഴിഞ്ഞ് പോസ്റ്റ്-ബേസ് ഉണ്ടെങ്കില്‍
         വ്യഞ്ജനം+പോസ്റ്റ്-ബേസ് കഴിഞ്ഞേ പ്രീ-ബേസ് ചേര്‍ക്കാവൂ!
         ഹൊ, പയ്യന്‍ പാണിനീശിഷ്യനാണ്!!
-        '''
+        """
         unicode_letter = letter.encode('utf-8')
         # Returns True if the letter is there in the list, 
         # else False.
         return unicode_letter in ["്യ", "്വ"]
 
     def LoadRules(self):
-        '''
-        ഈ സംഭവമാണു് മാപ്പിങ്ങ് ഫയല്‍ എടുത്തു് വായിച്ചു പഠിക്കുന്നതു്.
-        '''
+        # ഈ സംഭവമാണു് മാപ്പിങ്ങ് ഫയല്‍ എടുത്തു് വായിച്ചു പഠിക്കുന്നതു്.
         # if(self.rulesDict):
         #    return self.rulesDict
         rules_dict = dict()
@@ -224,7 +222,7 @@ class Payyans():
             if not line:
                 continue
                 '''ലൈനൊന്നും ല്യാ, മോശം.. ങും പോട്ടെ. വേറെ ലൈന്‍ പിടിക്കാം'''
-            if(len(line.split("=")) != 2):
+            if len(line.split("=")) != 2:
                 '''എന്തോ പ്രശ്നണ്ടു്. ന്നാ അതങ്ങടു തുറന്നു പറഞ്ഞേക്കാം'''
                 print("Error: Syntax Error in the Ascii to Unicode Map "
                       "in line number ", line_number)
