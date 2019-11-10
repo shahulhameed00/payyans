@@ -76,12 +76,11 @@ class Payyans():
                     if letter == 'ൈ':  # പിറകില്‍ രണ്ടു സാധനം പിടിപ്പിക്കുക
                         ascii_text = ascii_text[:-1] + ascii_letter + \
                             ascii_text[-1:]
-                    elif (letter == 'ോ') | (letter == 'ൊ') \
-                            | (letter == 'ൌ'):  # മുമ്പിലൊന്നും പിറകിലൊന്നും
+                    elif letter in ['ോ', 'ൊ', 'ൌ']:   
+                        # മുമ്പിലൊന്നും പിറകിലൊന്നും
                         ascii_text = ascii_text[:-1] + ascii_letter[0] + \
                             ascii_text[-1:] + ascii_letter[1]
-                    elif (letter == 'െ') | (letter == 'േ') | \
-                            (letter == '്ര'):  # പിറകിലൊന്നുമാത്രം
+                    elif letter in ['െ', 'േ', '്ര']:  # പിറകിലൊന്നുമാത്രം
                         ascii_text = ascii_text[:-1] + ascii_letter + \
                             ascii_text[-1:]
                     else:
@@ -89,9 +88,9 @@ class Payyans():
                     index = index + charNo
                     break
                 else:
-                    if(charNo == 1):
-                        index = index + 1
-                        ascii_text = ascii_text + letter
+                    if charNo == 1:
+                        index + =  1
+                        ascii_text += letter
                         break
                     '''നോക്കിയിട്ടു കിട്ടുന്നില്ല ബായി'''
                     ascii_letter = letter
@@ -175,10 +174,7 @@ class Payyans():
          എന്നു പയ്യന്റെ ഗുരു പയ്യഗുരു പയ്യെ മൊഴിഞ്ഞിട്ടുണ്ടു്.
         '''
         unicode_letter = letter.encode('utf-8')
-        if ((unicode_letter == "േ") |
-                (unicode_letter == "ൈ") | (unicode_letter == "ൊ") |
-                (unicode_letter == "ോ") | (unicode_letter == "ൌ") |
-                (unicode_letter == "്ര") | (unicode_letter == "െ")):
+        if unicode_letter in ["േ", "ൈ", "ൊ", "ോ", "ൌ", "്ര", "െ"]:
             return True  # "ഇതു സത്യം... അ...സത്യം.... അസത്യം...!"
         else:
             return False
