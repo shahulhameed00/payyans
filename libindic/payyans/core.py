@@ -151,7 +151,7 @@ class Payyans():
         return unicode_text  # മതം മാറ്റി തിരിച്ചു കൊടുക്ക്വാ !
 
     @staticmethod
-    def getVowelSign(self, vowel_letter, vowel_sign_letter):
+    def getVowelSign(vowel_letter, vowel_sign_letter):
         vowel = vowel_letter.encode('utf-8')
         vowel_sign = vowel_sign_letter.encode('utf-8')
         if vowel == "എ" and vowel_sign == "െ":
@@ -164,7 +164,7 @@ class Payyans():
         return (vowel_letter + vowel_sign_letter)
     
     @staticmethod
-    def isPrebase(self, letter):
+    def isPrebase(letter):
         '''
          ഇതെന്തിനാന്നു ചോദിച്ചാ, ഈ അക്ഷരങ്ങളുടെ ഇടതു വശത്തെഴുതുന്ന
          സ്വര ചിഹ്നങ്ങളുണ്ടല്ലോ? അവ ആസ്കി തരികിടയില്‍ എഴുതുന്നതു് ഇടതു വശത്തു
@@ -177,7 +177,7 @@ class Payyans():
         return unicode_letter in ["േ", "ൈ", "ൊ", "ോ", "ൌ", "്ര", "െ"]
 
     @staticmethod
-    def isPostbase(self, letter):
+    def isPostbase(letter):
         '''
         "ക്യ" എന്നതിലെ "്യ", "ക്വ" എന്നതിലെ "്വ" എന്നിവ പോസ്റ്റ്-ബേസ് ആണ്.
         "ത്യേ" എന്നത് ആസ്കിയില്‍ "ഏ+ത+്യ" എന്നാണ് എഴുതുന്നത്.
@@ -247,11 +247,11 @@ class Payyans():
         return rules_dict
 
     @staticmethod
-    def get_module_name(self):
+    def get_module_name():
         return "Payyans Unicode-ASCII Converter"
 
     @staticmethod
-    def get_info(self):
+    def get_info():
         return "ASCII data - Unicode Convertor based on font maps"
 
 
