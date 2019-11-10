@@ -89,7 +89,7 @@ class Payyans():
                     break
                 else:
                     if charNo == 1:
-                        index + =  1
+                        index += 1
                         ascii_text += letter
                         break
                     '''നോക്കിയിട്ടു കിട്ടുന്നില്ല ബായി'''
