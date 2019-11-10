@@ -130,23 +130,22 @@ class Payyans():
                                 next_ucode_letter = self.rulesDict[letter]
                                 if self.isPostbase(next_ucode_letter):
                                     postbase_letter = next_ucode_letter
-                                    index = index + 1
-                        if ((unicode_letter.encode('utf-8') == "എ") |
-                                (unicode_letter.encode('utf-8') == "ഒ")):
-                            unicode_text = unicode_text + postbase_letter + \
+                                    index += 1
+                        if unicode_letter.encode('utf-8') in ["എ","ഒ"]:
+                            unicode_text += postbase_letter + \
                                 self.getVowelSign(prebase_letter,
                                                   unicode_letter)
                         else:
-                            unicode_text = unicode_text + unicode_letter + \
+                            unicode_text += unicode_letter + \
                                 postbase_letter + prebase_letter
                         prebase_letter = ""
                         postbase_letter = ""
-                    index = index + charNo
+                    index += charNo
                     break
                 else:
                     if charNo == 1:
-                        unicode_text = unicode_text + letter
-                        index = index + 1
+                        unicode_text += letter
+                        index += 1
                         break
                     unicode_letter = letter
         return unicode_text  # മതം മാറ്റി തിരിച്ചു കൊടുക്ക്വാ !
@@ -154,9 +153,8 @@ class Payyans():
     def getVowelSign(self, vowel_letter, vowel_sign_letter):
         vowel = vowel_letter.encode('utf-8')
         vowel_sign = vowel_sign_letter.encode('utf-8')
-        if vowel == "എ":
-            if vowel_sign == "െ":
-                return "ഐ"
+        if vowel == "എ" and vowel_sign == "െ":
+            return "ഐ"
         if vowel == "ഒ":
             if vowel_sign == "ാ":
                 return "ഓ"
@@ -188,10 +186,9 @@ class Payyans():
         ഹൊ, പയ്യന്‍ പാണിനീശിഷ്യനാണ്!!
         '''
         unicode_letter = letter.encode('utf-8')
-        if ((unicode_letter == "്യ") | (unicode_letter == "്വ")):
-            return True
-        else:
-            return False
+        # Returns True if the letter is there in the list, 
+        # else False.
+        return unicode_letter in ["്യ", "്വ"]
 
     def LoadRules(self):
         '''
@@ -215,7 +212,7 @@ class Payyans():
                 text = unicode(original_text)  # noqa: F821
             except BaseException:
                 text = original_text
-            if text == "":
+            if not text:
                 break
             '''കമന്റടിച്ചേ മത്യാവൂന്നു വെച്ചാ ആവാം. ഒട്ടും മുഷിയില്ല്യ'''
             if text[0] == '#':
@@ -225,7 +222,7 @@ class Payyans():
                 കേട്ടില്യാന്നു വെച്ചു നടന്നോളൂ(മനസ്സില്‍ ചിരിച്ചോളൂ)
                 '''
             line = text.strip()
-            if(line == ""):
+            if not line:
                 continue
                 '''ലൈനൊന്നും ല്യാ, മോശം.. ങും പോട്ടെ. വേറെ ലൈന്‍ പിടിക്കാം'''
             if(len(line.split("=")) != 2):
