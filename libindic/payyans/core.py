@@ -150,6 +150,7 @@ class Payyans():
                     unicode_letter = letter
         return unicode_text  # മതം മാറ്റി തിരിച്ചു കൊടുക്ക്വാ !
 
+    @staticmethod
     def getVowelSign(self, vowel_letter, vowel_sign_letter):
         vowel = vowel_letter.encode('utf-8')
         vowel_sign = vowel_sign_letter.encode('utf-8')
@@ -161,7 +162,8 @@ class Payyans():
             if vowel_sign == "ൗ":
                 return "ഔ"
         return (vowel_letter + vowel_sign_letter)
-
+    
+    @staticmethod
     def isPrebase(self, letter):
         '''
          ഇതെന്തിനാന്നു ചോദിച്ചാ, ഈ അക്ഷരങ്ങളുടെ ഇടതു വശത്തെഴുതുന്ന
@@ -172,11 +174,9 @@ class Payyans():
          എന്നു പയ്യന്റെ ഗുരു പയ്യഗുരു പയ്യെ മൊഴിഞ്ഞിട്ടുണ്ടു്.
         '''
         unicode_letter = letter.encode('utf-8')
-        if unicode_letter in ["േ", "ൈ", "ൊ", "ോ", "ൌ", "്ര", "െ"]:
-            return True  # "ഇതു സത്യം... അ...സത്യം.... അസത്യം...!"
-        else:
-            return False
+        return unicode_letter in ["േ", "ൈ", "ൊ", "ോ", "ൌ", "്ര", "െ"]
 
+    @staticmethod
     def isPostbase(self, letter):
         '''
         "ക്യ" എന്നതിലെ "്യ", "ക്വ" എന്നതിലെ "്വ" എന്നിവ പോസ്റ്റ്-ബേസ് ആണ്.
@@ -206,7 +206,7 @@ class Payyans():
             ലൈന്‍ നമ്പര്‍ , മാപ്പിങ്ങ് ഫയലില്‍ തെറ്റുണ്ടെങ്കില്‍
             പറയാന്‍ ആവശ്യാണു്
             '''
-            line_number = line_number + 1
+            line_number += 1
             original_text = rules_file.readline()
             try:
                 text = unicode(original_text)  # noqa: F821
@@ -246,9 +246,11 @@ class Payyans():
                 rules_dict[rhs] = lhs
         return rules_dict
 
+    @staticmethod
     def get_module_name(self):
         return "Payyans Unicode-ASCII Converter"
 
+    @staticmethod
     def get_info(self):
         return "ASCII data - Unicode Convertor based on font maps"
 
